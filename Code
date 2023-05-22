@@ -1,0 +1,141 @@
+package LabAssessment8;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
+public class WaterIntakeTracker extends JPanel {
+    private JTextField textField;
+    private JProgressBar progressBar;
+    private JSlider slider;
+    private JCheckBox morningCheckBox;
+    private JCheckBox afternoonCheckBox;
+    private JCheckBox eveningCheckBox;
+    private JRadioButton ouncesRadioButton;
+    private JRadioButton mlRadioButton;
+    private JTable historyTable;
+
+    public WaterIntakeTracker() {
+        super(new BorderLayout());
+        setBackground(new Color(173, 216, 230));
+        // Create a panel for the input and submit button
+        JPanel inputPanel = new JPanel(new FlowLayout());
+        add(inputPanel, BorderLayout.NORTH);
+
+        // Add a label and text field for entering water intake
+        inputPanel.add(new JLabel("Enter your water intake (oz):"));
+        textField = new JTextField(10);
+        inputPanel.add(textField);
+
+        // Add a button to submit the water intake
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String inputText = textField.getText();
+                if (inputText.matches("\\d+")) {
+                    int amount = Integer.parseInt(inputText);
+                    updateProgress(amount);
+                    addHistoryEntry(amount);
+                    textField.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(WaterIntakeTracker.this,
+                    		"Invalid input. Please enter a number.");
+                }
+            }
+        });
+        inputPanel.add(submitButton);
+
+        // Create a panel for the progress bar and goal slider
+        JPanel goalPanel = new JPanel();
+        goalPanel.setLayout(new BoxLayout(goalPanel, BoxLayout.Y_AXIS));
+        add(goalPanel, BorderLayout.CENTER);
+
+        // Add a label and progress bar for tracking daily water intake
+        JLabel progressLabel = new JLabel("Daily water intake progress:");
+        progressBar = new JProgressBar(0, 100);
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true);
+        goalPanel.add(progressLabel);
+        goalPanel.add(progressBar);
+
+        // Add a label and slider for setting the daily water intake goal
+        JLabel goalLabel = new JLabel("Set your daily water intake goal (oz):");
+        slider = new JSlider(50, 200, 100);
+        slider.setMajorTickSpacing(50);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        goalPanel.add(goalLabel);
+        goalPanel.add(slider);
+
+        // Create a panel for the checkbox and radio button options
+        JPanel optionsPanel = new JPanel(new FlowLayout());
+        add(optionsPanel, BorderLayout.SOUTH);
+
+        // Add checkboxes for tracking water intake by time of day
+        morningCheckBox = new JCheckBox("Morning");
+        afternoonCheckBox = new JCheckBox("Afternoon");
+        eveningCheckBox = new JCheckBox("Evening");
+        optionsPanel.add(morningCheckBox);
+        optionsPanel.add(afternoonCheckBox);
+        optionsPanel.add(eveningCheckBox);
+        // Add radio buttons for selecting the unit of measurement
+        ButtonGroup unitGroup = new ButtonGroup();
+        ouncesRadioButton = new JRadioButton("Ounces", true);
+        mlRadioButton = new JRadioButton("Milliliters");
+        unitGroup.add(ouncesRadioButton);
+        unitGroup.add(mlRadioButton);
+        optionsPanel.add(new JLabel("Unit of measurement:"));
+        optionsPanel.add(ouncesRadioButton);
+        optionsPanel.add(mlRadioButton);
+
+        // Create a panel for displaying the water intake history
+        JPanel historyPanel = new JPanel(new BorderLayout());
+        add(historyPanel, BorderLayout.EAST);
+
+        // Add a label for the history table
+        JLabel historyLabel = new JLabel("Water Intake History:");
+        historyPanel.add(historyLabel, BorderLayout.NORTH);
+
+        // Create a table for displaying the water intake history
+        historyTable = new JTable(new DefaultTableModel(new Object[]{"Time", "Amount (oz)"}, 0));
+        JScrollPane historyScrollPane = new JScrollPane(historyTable);
+        historyPanel.add(historyScrollPane, BorderLayout.CENTER);
+
+        // Set up the layout and add the components to the frame
+        setPreferredSize(new Dimension(600, 400));
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+    }
+
+    // Update the progress bar and goal slider based on the input amount
+    private void updateProgress(int amount) {
+        int goal = slider.getValue();
+        int currentProgress = progressBar.getValue();
+        int newProgress = currentProgress + amount;
+        if (newProgress > goal) {
+            progressBar.setValue(goal);
+        } else {
+            progressBar.setValue(newProgress);
+        }
+    }
+
+    // Add a new entry to the history table
+    private void addHistoryEntry(int amount) {
+        Date date = new Date();
+        String[] row = {date.toString(), Integer.toString(amount)};
+        DefaultTableModel model = (DefaultTableModel) historyTable.getModel();
+        model.addRow(row);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Water Intake Tracker");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        WaterIntakeTracker waterIntakeTracker = new WaterIntakeTracker();
+        frame.add(waterIntakeTracker);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
