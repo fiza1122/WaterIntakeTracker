@@ -50,3 +50,7 @@ To run this application, you need to have the following software installed on yo
 - Java: The application is built using Java programming language.
 - Swing: The graphical user interface (GUI) is created using Swing API.
 - Eclipse IDE: The project is developed using the Eclipse integrated development environment.
+
+Acknowledgements
+
+    This project was developed as part of the Lab Assessment for Advanced Java Programming  Course at VIT Bhopal University.
