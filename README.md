@@ -2,7 +2,7 @@
 
 The Water Intake Calculator is a simple application that helps users track their daily water intake and set goals for staying hydrated. It provides a user-friendly interface to input and visualize water consumption data.
 
-## Features
+## Features of Application
 
 - **Input Water Intake:** Enter the amount of water consumed in ounces.
 - **Progress Tracking:** Track the daily water intake progress using a progress bar.
