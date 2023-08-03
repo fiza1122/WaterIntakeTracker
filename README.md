@@ -51,6 +51,6 @@ To run this application, you need to have the following software installed on yo
 - Swing: The graphical user interface (GUI) is created using Swing API.
 - Eclipse IDE: The project is developed using the Eclipse integrated development environment.
 
-Acknowledgements
+Acknowledgments
 
-    This project was developed as part of the Lab Assessment for Advanced Java Programming  Course at VIT Bhopal University.
+    This project was developed as part of the University's Lab Assessment for Advanced Java Programming  Course.
