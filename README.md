@@ -1,6 +1,6 @@
 # WaterIntakeTracker
 
-The Water Intake Calculator is a simple application that helps users track their daily water intake and set goals for staying hydrated. It provides a user-friendly interface to input and visualize water consumption data.
+The Water Intake Tracker is a simple application that helps users track their daily water intake and set goals for staying hydrated. It provides a user-friendly interface to input and visualize water consumption data.
 
 ## Features of Application
 
